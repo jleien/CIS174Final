@@ -2,12 +2,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
-
+using CIS174Final.Areas.Assignment.Models;
+using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<StudentContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("StudentContext")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +38,11 @@ app.UseEndpoints(endpoints => // map the endpoints
        name: "AppArea",
        areaName: "Application",
        pattern: "Application/{controller=AppController}/{action=Index}/{id?}");
+
+    endpoints.MapAreaControllerRoute(
+        name: "AssignmentArea",
+        areaName: "Assignment",
+        pattern: "Assignment/{controller=AssignmentController}/{action=AssignmentIndex}/{id?}");
 
     endpoints.MapControllerRoute(
         name: "CharacterCreator",
