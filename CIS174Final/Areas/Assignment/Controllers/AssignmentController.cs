@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CIS174Final.Areas.Assignment.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CIS174Final.Areas.Assignment.Controllers
 {
+    [Area("Assignment")]
     public class AssignmentController : Controller
     {
-        public IActionResult ControllerIndex()
+        private StudentContext context { get; set; }
+        public AssignmentController(StudentContext ctx)
         {
-            return View();
+            context = ctx;
+        }
+        
+        public IActionResult Index()
+        {
+            var students = context.TestStudents.ToList();
+            return View(students);
         }
 
         public IActionResult StudentView()
