@@ -1,0 +1,27 @@
+﻿@model CountryViewModel //needs to grab CountryViewModel
+@{
+    ViewData["Title"] = "Country Details";
+}
+
+<h2 class="text-center p-2">Country Details</h2>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <ul class="list-group text-center">
+            <li class="list-group-item">
+                <img src="~/images/@Model.Country.FlagImage" alt="" />
+                <h3>@Model.Country.Name</h3>
+            </li>
+            <li class="list-group-item">
+                <h4>Category: @Model.Country.Category.Name</h4>
+            </li>
+            <li class="list-group-item">
+                <h4>Game: @Model.Country.Game.Name</h4>
+            </li>
+            <li class="list-group-item">
+                <a asp-action="Index" asp-route-activeCat="@Model.ActiveCat"
+                   asp-route-activeGame="@Model.ActiveGame">Return to Home Page</a>
+            </li>
+        </ul>
+    </div>
+</div>
