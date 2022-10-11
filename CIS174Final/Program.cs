@@ -5,12 +5,16 @@ using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 using CIS174Final.Areas.Assignment.Models;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using CIS174Final.Areas.AssignmentModule7.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<StudentContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StudentContext")));
+builder.Services.AddDbContext<CountryContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("CountryContext")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,6 +47,12 @@ app.UseEndpoints(endpoints => // map the endpoints
         name: "AssignmentArea",
         areaName: "Assignment",
         pattern: "Assignment/{controller=AssignmentController}/{action=AssignmentIndex}/{id?}");
+
+    
+    endpoints.MapAreaControllerRoute( //This works fine, but for some reason it doesn't work with the dropdown
+        name: "AssignmentModule7Area",
+        areaName: "AssignmentModule7",
+        pattern: "AssignmentModule7/{controller=CountryController}/{action=CountryIndex}/game/{activeGame?}/cat/{activeCat?}");
 
     endpoints.MapControllerRoute(
         name: "CharacterCreator",
