@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CIS174Final.Areas.AssignmentModule7.Controllers
 {
+    [Area("AssignmentModule7")]
+
     public class CountryController : Controller
     {
         private CountryContext context;
