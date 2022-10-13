@@ -83,6 +83,7 @@ namespace CIS174Final.Migrations.Country
                 columns: new[] { "CountryID", "CategoryID", "FlagImage", "GameID", "Name" },
                 values: new object[,]
                 {
+                    //This should make it appear in alphabetical order right?
                     { "aus", "outdoor", "at.png", "para", "Austria" },
                     { "brz", "outdoor", "br.png", "summer", "Brazil" },
                     { "can", "indoor", "ca.png", "winter", "Canada" },
