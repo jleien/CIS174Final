@@ -7,5 +7,6 @@
         public Category Category { get; set; }  
         public Game Game { get; set; }
         public string FlagImage { get; set; }
+
     }
 }

@@ -1,0 +1,48 @@
+﻿@model //needs to grab CountryListViewModel but i can't get the path correct
+    ViewData["Title"] = "Olympic Participating Countries";
+}
+<div class="row">
+    <div class="col-sm-3">
+        <h3 class="mt-3">Category</h3>
+        <div class="list-group">
+            @foreach (Category cat in Model.Categories)
+            {
+                <a asp-action="Index"
+               asp-route-activeCat="@cat.CategoryID"
+               asp-route-activeGame="@Model.ActiveGame"
+               class="list-group-item
+                       @Model.CheckActiveCat(cat.CategoryID)">@cat.Name</a>
+            }
+        </div>
+        <h3 class="mt-3">Game</h3>
+        <div class="list-group">
+            @foreach (Game gam in Model.Games)
+            {
+                <a asp-action="Index"
+               asp-route-activeCat="@Model.ActiveCat"
+               asp-route-activeGame="@gam.GameID"
+               class="list-group-item
+                       @Model.CheckActiveGame(gam.GameID)">@gam.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <ul class="list-inline">
+            @foreach (Country country in Model.Countries)
+            {
+                <li class="list-inline-item">
+                    <form asp-action="Details" method="post">
+                        <button type="submit" class="bg-white border-0">
+                            img src="~/images/@country.FlagImage" alt="@country.Name"
+                            title="@country.Name | @country.Category.Name @country.Game.Name" />
+                        </button>
+
+                        <input type="hidden" asp-for="@country.CountryID" />
+                        <input type="hidden" asp-for="ActiveCat" />
+                        <input type="hidden" asp-for="ActiveGame" />
+                    </form>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
