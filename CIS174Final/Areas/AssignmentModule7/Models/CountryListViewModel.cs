@@ -32,6 +32,7 @@
             c.ToLower() == ActiveCat.ToLower() ? "active" : "";
 
         public string CheckActiveGame(string d) =>
+            d.ToLower() == ActiveGame.ToLower() ? "active" : "";
 
 
     }
