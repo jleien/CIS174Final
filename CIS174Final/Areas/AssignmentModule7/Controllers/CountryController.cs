@@ -16,8 +16,8 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
             this.context = context;
         }
 
-        public IActionResult Index(string activeCat = "all",
-                                           string activeGame = "all")
+        [Route("/AssignmentModule7")]
+        public IActionResult Index(string activeCat = "all", string activeGame = "all")
         {
             var data = new CountryListViewModel
             {

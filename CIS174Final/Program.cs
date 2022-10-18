@@ -48,11 +48,10 @@ app.UseEndpoints(endpoints => // map the endpoints
         areaName: "Assignment",
         pattern: "Assignment/{controller=AssignmentController}/{action=AssignmentIndex}/{id?}");
 
-    
-    endpoints.MapAreaControllerRoute( //This works fine, but for some reason it doesn't work with the dropdown
+    endpoints.MapAreaControllerRoute(
         name: "AssignmentModule7Area",
         areaName: "AssignmentModule7",
-        pattern: "AssignmentModule7/{controller=CountryController}/{action=CountryIndex}/game/{activeGame?}/cat/{activeCat?}");
+        pattern: "{controller=CountryController}/{action=CountryIndex}/game/{activeGame?}/cat/{activeCat?}");
 
     endpoints.MapControllerRoute(
         name: "CharacterCreator",
