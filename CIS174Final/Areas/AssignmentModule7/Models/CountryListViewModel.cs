@@ -24,13 +24,13 @@
             {
                 games = value;
                 games.Insert(0,
-                    new Game { GameID = "all", Name = "All" });false]
+                    new Game { GameID = "all", Name = "All" });
             }
         }
 
         public string CheckActiveCat(string c) =>
             c.ToLower() == ActiveCat.ToLower() ? "active" : "";
-        //
+        
         public string CheckActiveGame(string d) =>
             d.ToLower() == ActiveGame.ToLower() ? "active" : "";
 
