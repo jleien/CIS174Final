@@ -14,6 +14,7 @@
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Application\Models\" />
+    <Folder Include="Areas\AssignmentModule7\Views\Shared\" />
   </ItemGroup>
 
   <ItemGroup>
