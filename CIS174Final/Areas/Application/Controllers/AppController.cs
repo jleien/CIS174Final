@@ -1,8 +1,9 @@
-﻿using CIS174Final.Controllers;
+﻿
+using CIS174Final.Controllers;
 using CIS174Final.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
+//this is what is being shown when you go to character creator and i dont know why
 namespace CIS174Final.Areas.Application.Controllers
 {
     [Area("Application")]
