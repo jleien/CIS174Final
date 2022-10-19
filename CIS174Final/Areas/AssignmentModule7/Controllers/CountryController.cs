@@ -40,6 +40,7 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
         }
 
         [HttpPost]
+        [Route("/AssignmentModule7/Details/{id?}")]
         public IActionResult Details(CountryViewModel model)
         {
             Utility.LogCountryClick(model.Country.CountryID);
@@ -50,6 +51,7 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
         }
 
         [HttpGet]
+        [Route("/AssignmentModule7/Details/{id?}")]
         public IActionResult Details(string id)
         {
 #pragma warning disable CS8601 // Possible null reference assignment.
