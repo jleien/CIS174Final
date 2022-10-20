@@ -6,12 +6,12 @@
 <div class="text-center">
     <h2>My Favorites</h2>
     <form asp-action="Delete" method="post">
-        <a asp-action="Index" asp-area="AssignmentModule7" asp-controller="Country" style="height:fit-content; width:200px"  class="btn btn-primary"
+        <a asp-action="Index" asp-area="AssignmentModule7" asp-controller="Country" style="height:fit-content, width:200px"class="btn btn-primary"
            asp-route-activeGame="@Model.ActiveGame"
            asp-route-activeCat="@Model.ActiveCat">
             Back to Home Page
         </a>
-        <button type="submit" class="btn btn-primary" style="height:fit-content; width:200px">
+        <button style="height:fit-content, width:200px" type="submit" class="btn btn-primary">
             Clear Favorites
         </button>
     </form>
