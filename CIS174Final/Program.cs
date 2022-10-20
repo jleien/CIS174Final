@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using CIS174Final.Areas.AssignmentModule7.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddDbContext<StudentContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StudentContext")));
 builder.Services.AddDbContext<CountryContext>(options =>
@@ -29,6 +32,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints => // map the endpoints 
