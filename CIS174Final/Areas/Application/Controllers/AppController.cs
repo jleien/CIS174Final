@@ -18,7 +18,7 @@ namespace CIS174Final.Areas.Application.Controllers
 
         public IActionResult CharacterCreator(int character)
         {
-            return Content("App controller, Character Creator action, " + "Character " + character);
+            return View();
 
         }
 

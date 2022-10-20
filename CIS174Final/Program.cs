@@ -50,7 +50,7 @@ app.UseEndpoints(endpoints => // map the endpoints
     endpoints.MapAreaControllerRoute(
         name: "AssignmentArea",
         areaName: "Assignment",
-        pattern: "Assignment/{controller=AssignmentController}/{action=AssignmentIndex}/{id?}");
+        pattern: "Assignment/{controller=Assignment}/{action=AssignmentIndex}/{id?}");
 
     endpoints.MapAreaControllerRoute(
         name: "AssignmentModule7Area",

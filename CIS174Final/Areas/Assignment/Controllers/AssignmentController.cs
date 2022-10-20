@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CIS174Final.Areas.Assignment.Controllers
 {
-    [Area("AssignmentModule7")]
+    [Area("Assignment")]
     public class AssignmentController : Controller
     {
         private StudentContext context { get; set; }
