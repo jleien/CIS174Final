@@ -11,14 +11,31 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
     {
         private CountryContext context;
 
-        public CountryController(CountryContext context)
+        public CountryController(CountryContext ctx)
         {
-            this.context = context;
+            context = ctx;
         }
 
         [Route("/AssignmentModule7")]
         public IActionResult Index(string activeCat = "all", string activeGame = "all")
         {
+            var session = new CountrySession(HttpContext.Session);
+            session.SetActiveGame(activeGame);
+            session.SetActiveCat(activeCat);
+            int? count = session.GetMyCountryCount();
+            if (count == null)
+            {
+                var cookies = new CountryCookies(Request.Cookies);
+                string[] ids = cookies.GetMyCountryIds();
+
+                List<Country> mycountries = new List<Country>();
+                if (ids.Length > 0)
+                    mycountries = context.Countries.Include(c => c.Game)
+                        .Include(c => c.Category)
+                        .Where(c => ids.Contains(c.CountryID)).ToList();
+                session.SetMyCountries(mycountries);
+            }
+
             var data = new CountryListViewModel
             {
                 ActiveCat = activeCat,
@@ -39,33 +56,49 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
             return View(data);
         }
 
-        [HttpPost]
-        [Route("/AssignmentModule7/Details/{id?}")]
-        public IActionResult Details(CountryViewModel model)
-        {
-            Utility.LogCountryClick(model.Country.CountryID);
-
-            TempData["ActiveCat"] = model.ActiveCat;
-            TempData["ActiveGame"] = model.ActiveGame;
-            return RedirectToAction("Details", new { ID = model.Country.CountryID });
-        }
-
-        [HttpGet]
         [Route("/AssignmentModule7/Details/{id?}")]
         public IActionResult Details(string id)
         {
-#pragma warning disable CS8601 // Possible null reference assignment.
+            var session = new CountrySession(HttpContext.Session);
             var model = new CountryViewModel
             {
                 Country = context.Countries
-                    .Include(t => t.Category)
-                    .Include(t => t.Game)
-                    .FirstOrDefault(t => t.CountryID == id),
-                ActiveGame = TempData?["ActiveGame"]?.ToString() ?? "all",
-                ActiveCat = TempData?["ActiveCat"]?.ToString() ?? "all"
+                    .Include(c => c.Game)
+                    .Include(c => c.Category)
+                    .FirstOrDefault(c => c.CountryID == id),
+                ActiveGame = session.GetActiveGame(),
+                ActiveCat = session.GetActiveGame()
             };
-#pragma warning restore CS8601 // Possible null reference assignment.
             return View(model);
         }
+        [HttpPost]
+        [Route("/AssignmentModule7")]
+        public RedirectToActionResult Add(CountryViewModel model)
+        {
+            model.Country = context.Countries
+                .Include(c => c.Game)
+                .Include(c => c.Category)
+                .Where(c => c.CountryID == model.Country.CountryID)
+                .FirstOrDefault();
+
+            var session = new CountrySession(HttpContext.Session);
+            var countries = session.GetMyCountries();
+            countries.Add(model.Country);
+            session.SetMyCountries(countries);
+
+            var cookies = new CountryCookies(Response.Cookies);
+            cookies.SetMyCountryIds(countries);
+
+            TempData["message"] = $"{model.Country.Name} added to your favorites";
+
+            return RedirectToAction("Index",
+                new
+                {
+                    ActiveGame = session.GetActiveGame(),
+                    ActiveCat = session.GetActiveCat()
+                });
+        }
+
+
     }
 }

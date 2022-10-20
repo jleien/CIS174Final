@@ -47,7 +47,21 @@
 
                             </ul>
                         </li>
-
+                        <li class="nav-item">
+                            @if (!ViewContext.View.Path.Contains("Favorites"))
+                            {
+                                var session = new CountrySession(Context.Session);
+                                <a class="nav-link text-dark" asp-area="AssignmentModule7" asp-controller="Favorites" asp-action="Index">
+                                    My Favorite Countries: @(session.GetMyCountryCount())
+                                </a>
+                            }
+                        </li>
+                        <li>
+                            @if (TempData["message"] != null)
+                            {
+                                <a class="nav-link text-dark">@TempData["message"]</a>
+                            }
+                        </li>
                     </ul>
                 </div>
             </div>
