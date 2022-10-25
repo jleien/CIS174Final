@@ -6,6 +6,7 @@ using CIS174Final.Areas.Assignment.Models;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using CIS174Final.Areas.AssignmentModule7.Models;
+using CIS174Final.Areas.TicketList.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<StudentContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StudentContext")));
 builder.Services.AddDbContext<CountryContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CountryContext")));
+builder.Services.AddDbContext<TicketContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("TicketContext")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,6 +59,11 @@ app.UseEndpoints(endpoints => // map the endpoints
         name: "AssignmentModule7Area",
         areaName: "AssignmentModule7",
         pattern: "{controller=CountryController}/{action=CountryIndex}/game/{activeGame?}/cat/{activeCat?}");
+
+    endpoints.MapAreaControllerRoute(
+        name: "TicketListArea",
+        areaName: "TicketList",
+        pattern: "TicketList/{controller=Ticket}/{action=TicketIndex}/{id?}");
 
     endpoints.MapControllerRoute(
         name: "CharacterCreator",
