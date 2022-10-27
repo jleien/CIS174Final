@@ -1,6 +1,8 @@
 ﻿using CIS174Final.Areas.TicketList.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static NuGet.Packaging.PackagingConstants;
 
 namespace CIS174Final.Areas.TicketList.Controllers
@@ -18,10 +20,12 @@ namespace CIS174Final.Areas.TicketList.Controllers
             TicketViewModel model = new();
 
             var filters = new Filters(id);
-
-            model.Filters = new Filters(id);
-            model.Sprint = context.Sprints.ToList();
-            model.Statuses = context.Statuses.ToList();
+            ViewBag.Filters = filters;
+            ViewBag.Statuses = context.Statuses.ToList();
+            ViewBag.Sprint = context.Sprints.ToList();
+            //model.Filters = new Filters(id);
+            //model.Sprint = context.Sprints.ToList();
+            //model.Statuses = context.Statuses.ToList();
 
 
             // get Ticket objects from database based on current filters
@@ -39,10 +43,12 @@ namespace CIS174Final.Areas.TicketList.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Statuses = context.Statuses.ToList();
+            ViewBag.Sprint = context.Sprints.ToList();
             TicketViewModel model = new()
             {
-                Sprint = context.Sprints.ToList(),
-                Statuses = context.Statuses.ToList()
+                //Sprint = context.Sprints.ToList(),
+                //Statuses = context.Statuses.ToList()
             };
             return View(model);
         }
@@ -58,8 +64,8 @@ namespace CIS174Final.Areas.TicketList.Controllers
             }
             else
             {
-                model.Sprint = context.Sprints.ToList();
-                model.Statuses = context.Statuses.ToList();
+                ViewBag.Sprint = context.Sprints.ToList();
+                ViewBag.Statuses = context.Statuses.ToList();
                 return View(model);
             }
         }
