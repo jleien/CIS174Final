@@ -17,11 +17,16 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
         }
 
         [Route("/AssignmentModule7")]
-        public IActionResult Index(string activeCat = "all", string activeGame = "all")
+        // CountryListViewModel for ModelBinding
+        public IActionResult Index(CountryListViewModel model)
         {
+            model.Games = context.Games.ToList();
+            model.Categories = context.Categories.ToList();
+
             var session = new CountrySession(HttpContext.Session);
-            session.SetActiveGame(activeGame);
-            session.SetActiveCat(activeCat);
+            session.SetActiveGame(model.ActiveGame);
+            session.SetActiveCat(model.ActiveCat);
+
             int? count = session.GetMyCountryCount();
             if (count == null)
             {
@@ -36,24 +41,17 @@ namespace CIS174Final.Areas.AssignmentModule7.Controllers
                 session.SetMyCountries(mycountries);
             }
 
-            var data = new CountryListViewModel
-            {
-                ActiveCat = activeCat,
-                ActiveGame = activeGame,
-                Categories = context.Categories.ToList(),
-                Games = context.Games.ToList()
-            };
 
             IQueryable<Country> query = context.Countries;
-            if (activeCat != "all")
+            if (model.ActiveCat != "all")
                 query = query.Where(
-                    t => t.Category.CategoryID.ToLower() == activeCat.ToLower());
-            if (activeGame != "all")
+                    t => t.Category.CategoryID.ToLower() == model.ActiveCat.ToLower());
+            if (model.ActiveGame != "all")
                 query = query.Where(
-                    t => t.Game.GameID.ToLower() == activeGame.ToLower());
-            data.Countries = query.ToList();
+                    t => t.Game.GameID.ToLower() == model.ActiveGame.ToLower());
+            model.Countries = query.ToList();
 
-            return View(data);
+            return View(model);
         }
 
         [Route("/AssignmentModule7/Details/{id?}")]
