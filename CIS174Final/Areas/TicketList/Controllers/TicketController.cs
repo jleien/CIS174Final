@@ -10,15 +10,14 @@ namespace CIS174Final.Areas.TicketList.Controllers
     [Area("TicketList")]
     public class TicketController : Controller
     {
-        private readonly TicketContext context;
+        private TicketContext context;
         
         public TicketController(TicketContext ctx) => context = ctx;
 
         public IActionResult Index(string id)
         {
             //store current filters and data needed for filter drop downs in TicketViewModel
-            TicketViewModel model = new();
-
+            //TicketViewModel model = new();
             var filters = new Filters(id);
             ViewBag.Filters = filters;
             ViewBag.Statuses = context.Statuses.ToList();
@@ -29,7 +28,7 @@ namespace CIS174Final.Areas.TicketList.Controllers
 
 
             // get Ticket objects from database based on current filters
-            IQueryable<Ticket> query = context.Tickets.Include(t => t.SprintId).Include(t => t.Status);
+            IQueryable<Ticket> query = context.Tickets.Include(t => t.Sprint).Include(t => t.Status);
             if (filters.HasSprint)
             {
                 query = query.Where(t => t.SprintId == filters.SprintId);
@@ -38,19 +37,15 @@ namespace CIS174Final.Areas.TicketList.Controllers
             {
                 query = query.Where(t => t.StatusId == filters.StatusId);
             }
-            return View(model);
+            return View();
         }
 
         public IActionResult Add()
         {
+            var ticket = new TicketViewModel();
             ViewBag.Statuses = context.Statuses.ToList();
             ViewBag.Sprint = context.Sprints.ToList();
-            TicketViewModel model = new()
-            {
-                //Sprint = context.Sprints.ToList(),
-                //Statuses = context.Statuses.ToList()
-            };
-            return View(model);
+            return View(ticket);
         }
 
         [HttpPost]
@@ -58,7 +53,7 @@ namespace CIS174Final.Areas.TicketList.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Tickets.Add(model.CurrentTask);
+                context.Tickets.Add(model.Ticket);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
