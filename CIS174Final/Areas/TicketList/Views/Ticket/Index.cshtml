@@ -40,6 +40,19 @@
                     <th class="w-25"></th>
                 </tr>
             </thead>
+            <tbody>
+                @foreach (var ticket in Model.Tickets)
+                {
+                    <tr>
+                        <th>@ticket.Name</th>
+                        <th>@ticket.Description</th>
+                        <th>@ticket.SprintId</th>
+                        <th>@ticket.pointId</th>
+                        <th>@ticket.StatusId</th>
+                        <th class="w-25"></th>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
