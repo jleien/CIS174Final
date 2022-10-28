@@ -1,6 +1,8 @@
 ﻿using CIS174Final.Areas.TicketList.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static NuGet.Packaging.PackagingConstants;
 
 namespace CIS174Final.Areas.TicketList.Controllers
@@ -8,15 +10,14 @@ namespace CIS174Final.Areas.TicketList.Controllers
     [Area("TicketList")]
     public class TicketController : Controller
     {
-        private readonly TicketContext context;
+        private TicketContext context;
         
         public TicketController(TicketContext ctx) => context = ctx;
 
         public IActionResult Index(string id)
         {
             //store current filters and data needed for filter drop downs in TicketViewModel
-            TicketViewModel model = new();
-
+            //TicketViewModel model = new();
             var filters = new Filters(id);
             ViewBag.Filters = filters;
             ViewBag.Sprint = context.Sprints.ToList();
@@ -41,6 +42,7 @@ namespace CIS174Final.Areas.TicketList.Controllers
         public IActionResult Add()
         {
             var ticket = new Ticket();
+
             ViewBag.Statuses = context.Statuses.ToList();
             ViewBag.Sprint = context.Sprints.ToList();
             return View(ticket);
@@ -51,7 +53,9 @@ namespace CIS174Final.Areas.TicketList.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 context.Tickets.Add(model);
+
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }

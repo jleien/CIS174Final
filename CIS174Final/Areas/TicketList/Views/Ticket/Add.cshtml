@@ -7,6 +7,7 @@
 <form asp-action="Add" method="post">
 
     <div class="form-group">
+
         <label asp-for="Name">Name:</label>
         <input type="text" asp-for="Name" class="form-control">
     </div>
@@ -19,6 +20,7 @@
     <div class="form-group">
         <label asp-for="SprintId">Sprint:</label>
         <select asp-for="SprintId" class="form-control"
+
                 asp-items="@(new SelectList(ViewBag.Sprint, "SprintId", "Number"))">
             <option value=""></option>
         </select>
@@ -30,6 +32,7 @@
     <div class="form-group">
         <label asp-for="StatusId">Status:</label>
         <select asp-for="StatusId" class="form-control"
+
                 asp-items="@(new SelectList(ViewBag.Statuses, "StatusId", "Name"))">
             <option value=""></option>
         </select>
