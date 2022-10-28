@@ -8,16 +8,16 @@
             <div class="form-group">
                 <label>Sprint Number:</label>
                 <select name="filter" class="form-control"
-                        asp-items="@(new SelectList(Model.Sprint,
-                    "SprintId", "Number", Model.Filters.SprintId))">
+                        asp-items="@(new SelectList(ViewBag.Sprint,
+                    "SprintId", "Number", ViewBag.Filters.SprintId))">
                     <option value="all">All</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Status:</label>
                 <select name="filter" class="form-control"
-                        asp-items="@(new SelectList(Model.Statuses,
-                    "StatusId", "Name", Model.Filters.StatusId))">
+                        asp-items="@(new SelectList(ViewBag.Statuses,
+                    "StatusId", "Name", ViewBag.Filters.StatusId))">
                     <option value="all">All</option>
                 </select>
             </div>

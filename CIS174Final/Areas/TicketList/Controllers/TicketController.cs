@@ -18,14 +18,13 @@ namespace CIS174Final.Areas.TicketList.Controllers
             TicketViewModel model = new();
 
             var filters = new Filters(id);
-
-            model.Filters = new Filters(id);
-            model.Sprint = context.Sprints.ToList();
-            model.Statuses = context.Statuses.ToList();
+            ViewBag.Filters = filters;
+            ViewBag.Sprint = context.Sprints.ToList();
+            ViewBag.Statuses = context.Statuses.ToList();
 
 
             // get Ticket objects from database based on current filters
-            IQueryable<Ticket> query = context.Tickets.Include(t => t.SprintId).Include(t => t.Status);
+            IQueryable<Ticket> query = context.Tickets.Include(t => t.Sprint).Include(t => t.Status);
             if (filters.HasSprint)
             {
                 query = query.Where(t => t.SprintId == filters.SprintId);
@@ -58,8 +57,8 @@ namespace CIS174Final.Areas.TicketList.Controllers
             }
             else
             {
-                model.Sprint = context.Sprints.ToList();
-                model.Statuses = context.Statuses.ToList();
+                ViewBag.Sprint = context.Sprints.ToList();
+                ViewBag.Statuses = context.Statuses.ToList();
                 return View(model);
             }
             
