@@ -20,11 +20,8 @@ namespace CIS174Final.Areas.TicketList.Controllers
             //TicketViewModel model = new();
             var filters = new Filters(id);
             ViewBag.Filters = filters;
-            ViewBag.Statuses = context.Statuses.ToList();
             ViewBag.Sprint = context.Sprints.ToList();
-            //model.Filters = new Filters(id);
-            //model.Sprint = context.Sprints.ToList();
-            //model.Statuses = context.Statuses.ToList();
+            ViewBag.Statuses = context.Statuses.ToList();
 
 
             // get Ticket objects from database based on current filters
@@ -37,23 +34,28 @@ namespace CIS174Final.Areas.TicketList.Controllers
             {
                 query = query.Where(t => t.StatusId == filters.StatusId);
             }
-            return View();
+            TicketViewModel TVM = new();
+            TVM.Tickets = query.ToList();
+            return View(TVM);
         }
 
         public IActionResult Add()
         {
-            var ticket = new TicketViewModel();
+            var ticket = new Ticket();
+
             ViewBag.Statuses = context.Statuses.ToList();
             ViewBag.Sprint = context.Sprints.ToList();
             return View(ticket);
         }
 
         [HttpPost]
-        public IActionResult Add(TicketViewModel model)
+        public IActionResult Add(Ticket model)
         {
             if (ModelState.IsValid)
             {
-                context.Tickets.Add(model.Ticket);
+
+                context.Tickets.Add(model);
+
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -63,6 +65,7 @@ namespace CIS174Final.Areas.TicketList.Controllers
                 ViewBag.Statuses = context.Statuses.ToList();
                 return View(model);
             }
+            
         }
 
         [HttpPost]
