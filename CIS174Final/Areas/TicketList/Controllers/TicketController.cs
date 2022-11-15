@@ -1,4 +1,5 @@
 ﻿using CIS174Final.Areas.TicketList.Models;
+using CIS174Final.Areas.TicketList.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,14 @@ namespace CIS174Final.Areas.TicketList.Controllers
     public class TicketController : Controller
     {
         private TicketContext context;
-        
+        private readonly ILogger<TicketController> _logger;
+        private ITicketRepository ticketRepository;
         public TicketController(TicketContext ctx) => context = ctx;
+        public TicketController(ILogger<TicketController> logger, ITicketRepository repo)
+        {
+            _logger = logger;
+            ticketRepository = repo;
+        }
 
         public IActionResult Index(string id)
         {
