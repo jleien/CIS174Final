@@ -7,6 +7,7 @@ using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using CIS174Final.Areas.AssignmentModule7.Models;
 using CIS174Final.Areas.TicketList.Models;
+using CIS174Final.Areas.TicketList.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -21,6 +22,10 @@ builder.Services.AddDbContext<CountryContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CountryContext")));
 builder.Services.AddDbContext<TicketContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("TicketContext")));
+
+//Dependency Injection
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
