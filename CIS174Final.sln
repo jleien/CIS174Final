@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CIS174Final", "CIS174Final\CIS174Final.csproj", "{7D9F036E-2E64-42F6-97CF-26A475154ECF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketAssignmentTest", "TicketAssignmentTest\TicketAssignmentTest.csproj", "{E54EC00A-1D53-4AEB-9133-E9573E56B8FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7D9F036E-2E64-42F6-97CF-26A475154ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D9F036E-2E64-42F6-97CF-26A475154ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D9F036E-2E64-42F6-97CF-26A475154ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E54EC00A-1D53-4AEB-9133-E9573E56B8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E54EC00A-1D53-4AEB-9133-E9573E56B8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E54EC00A-1D53-4AEB-9133-E9573E56B8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E54EC00A-1D53-4AEB-9133-E9573E56B8FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
