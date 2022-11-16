@@ -7,8 +7,7 @@ namespace CIS174Final.Areas.TicketList.Repository
         List<Ticket> GetAllTickets();
         Ticket Find(int id);
         void Save();
-        void InsertTicket();
-        void UpdateTicket();
-        void DeleteTicket();  
+        void InsertTicket(Ticket ticket);
+        void DeleteTicket(Ticket ticket);  
     }
 }
