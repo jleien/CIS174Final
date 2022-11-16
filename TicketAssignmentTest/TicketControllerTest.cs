@@ -1,11 +1,5 @@
-using CIS174Final.Areas.TicketList.Controllers;
-using CIS174Final.Areas.TicketList.Models;
-using CIS174Final.Areas.TicketList.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Collections.Generic;
-using Moq;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace TicketAssignmentTest
@@ -13,10 +7,16 @@ namespace TicketAssignmentTest
     [TestClass]
     public class TicketControllerTest
     {
-        [TestMethod]
-        public void Test()
+        [Fact]
+        public void TestTicket()
         {
+            var mock = new Mock<TicketController>();
+            var ticket = new Ticket() { Id=1, Description="test", Name="test1", pointId="5", SprintId="2", StatusId="qa"};
+            List<Ticket> list = new List<Ticket>();
+            list.Add(ticket);
             
+            Assert.AreEqual(1, list.Count) ;
+
         }
     }
 }
