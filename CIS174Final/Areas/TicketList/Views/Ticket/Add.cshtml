@@ -1,4 +1,5 @@
 ﻿@model Ticket
+@addTagHelper *, CIS174Final
 
 <h2>New Task</h2>
 
@@ -37,10 +38,8 @@
             <option value=""></option>
         </select>
     </div>
-    <div>
-        @await Component.InvokeAsync("Status");
-    </div>
+
     <vc:status></vc:status>
-    <button type="submit" class="btn btn-primary">Add</button>
+    <submit-button class="add">Add</submit-button>
     <a asp-action="Index" class="btn btn-primary">Cancel</a>
 </form>
