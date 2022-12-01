@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CIS174Final.Areas.TicketList.Models
 {
-    public class TicketContext : DbContext
+    public class TicketContext : IdentityDbContext<User>
     {
         public TicketContext(DbContextOptions<TicketContext> options)
             : base(options) { }
@@ -14,6 +16,7 @@ namespace CIS174Final.Areas.TicketList.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Sprint>().HasData(
                 new Sprint { SprintId = "1", Number = "1" },
                 new Sprint { SprintId = "2", Number = "2" },
