@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CIS174Final.Areas.AssignmentModule7.Models;
 using CIS174Final.Areas.TicketList.Models;
 using CIS174Final.Areas.TicketList.Repository;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -25,6 +26,12 @@ builder.Services.AddDbContext<TicketContext>(options =>
 
 //Dependency Injection
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddIdentity<User, IdentityRole>(options =>{
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireUppercase = false;
+}).AddEntityFrameworkStores<TicketContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -40,6 +47,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseSession();
 app.UseAuthorization();
 
